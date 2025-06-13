@@ -60,15 +60,15 @@ function handle_file_upload($target_dir) {
 function get_file_icon($filename) {
     $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
     return match($ext) {
-        'jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp' => '🖼️',
-        'mp4', 'mkv', 'avi', 'mov', 'wmv', 'flv' => '🎥',
+        'jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp' => '🌄',
+        'mp4', 'mkv', 'avi', 'mov', 'wmv', 'flv' => '🎬',
         'mp3', 'wav', 'flac', 'aac', 'ogg' => '🎵',
         'pdf' => '📕',
         'doc', 'docx' => '📄',
         'xls', 'xlsx' => '📊',
         'ppt', 'pptx' => '📽️',
         'zip', 'rar', '7z', 'tar', 'gz' => '🗜️',
-        'txt', 'md', 'log' => '📜',
+        'txt', 'md', 'log' => '📃',
         'php', 'js', 'html', 'css', 'py', 'sh', 'c', 'cpp', 'java' => '💻',
         default => '📁'
     };

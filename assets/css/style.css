@@ -82,6 +82,11 @@ input[type="file"] {
     table-layout: fixed;
 }
 
+.file-list tbody {
+    cursor: pointer;
+}
+
+
 .file-list th, .file-list td {
     padding: 12px 15px;
     text-align: left;
@@ -98,19 +103,15 @@ input[type="file"] {
 }
 
 .file-name a, .file-actions a {
-    text-decoration: none;
-    color: #4a90e2;
-    font-weight: 500;
+    text-decoration: und;
+
+    font-weight: 900;
     transition: 0.2s ease-in-out;
 }
 
 .file-actions a:hover {
     color: #1f6feb;
     transform: scale(1.2);
-}
-
-.file-name span {
-    color: #555;
 }
 
 /* Dark mode */
@@ -207,4 +208,84 @@ body.dark-mode .file-name-display {
 .btn-download:hover {
     background-color: #27ae60;
     transform: scale(1.05);
+}
+
+/* Base styles for table */
+.file-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.file-list tbody tr td a {
+    text-decoration: none;
+}
+
+.file-list th,
+.file-list td {
+  padding: 12px;
+  border-bottom: 1px solid #444;
+  text-align: left;
+  vertical-align: top;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Hide modified column on small screens */
+@media (max-width: 600px) {
+  .file-list th:nth-child(3),
+  .file-list td:nth-child(3) {
+    display: none;
+  }
+}
+
+/* Responsive: Card-like rows on mobile */
+@media (max-width: 768px) {
+  .file-list thead {
+    display: none;
+  }
+
+  .file-list,
+  .file-list tbody,
+  .file-list tr,
+  .file-list td {
+    display: block;
+    width: 100%;
+  }
+
+  .file-list tr {
+    margin-bottom: 16px;
+    border: 1px solid #555;
+    border-radius: 8px;
+    padding: 12px;
+  }
+
+  .file-list td {
+    border: none;
+    padding: 6px 12px;
+  }
+
+  .file-name {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .file-actions {
+    margin-top: 8px;
+  }
+
+  .btn-download {
+    display: inline-block;
+    margin-top: 6px;
+    background: #007bff;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+  }
+
+  .btn-download:hover {
+    background: #0056b3;
+  }
 }

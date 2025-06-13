@@ -22,7 +22,7 @@ $display_path = clean_path_display($current_path);
     <div class="container">
         <div class="header">
             <h1>File Sharing</h1>
-            <button id="theme-toggle" class="btn">🌓 Toggle Theme</button>
+            <button id="theme-toggle" class="btn">🌓</button>
         </div>
 
         <div class="breadcrumb">
@@ -66,30 +66,32 @@ $display_path = clean_path_display($current_path);
                 <?php endif; ?>
                 
                 <?php foreach ($files as $file): ?>
-                <tr>
-                    <td class="file-name">
-                        <?php if ($file['type'] === 'dir'): ?>
-                            <a href="?path=<?= urlencode($file['path']) ?>">📁 <?= htmlspecialchars($file['name']) ?></a>
-                        <?php else: ?>
+                    <tr class="clickable-row" data-href="<?php 
+                        if ($file['type'] === 'dir') {
+                            echo '?path=' . urlencode($file['path']);
+                        } else {
+                            echo '/Shared/' . htmlspecialchars($file['path']);
+                        }
+                    ?>">
+                        <td class="file-name">
                             <?php $icon = get_file_icon($file['name']); ?>
                             <span><?= $icon ?> <?= htmlspecialchars($file['name']) ?></span>
-                        <?php endif; ?>
-                    </td>
-                    <td><?= format_size($file['size']) ?></td>
-                    <td><?= date('Y-m-d H:i', $file['modified']) ?></td>
-                    <td class="file-actions">
-                        <?php if ($file['type'] !== 'dir'): ?>
-                            <a href="/Shared/<?= htmlspecialchars($file['path']) ?>" 
-                                class="btn btn-download" 
+                        </td>
+                        <td><?= format_size($file['size']) ?></td>
+                        <td><?= date('Y-m-d H:i', $file['modified']) ?></td>
+                        <td class="file-actions">
+                            <?php if ($file['type'] !== 'dir'): ?>
+                                <a href="/Shared/<?= htmlspecialchars($file['path']) ?>"
+                                class="btn btn-download"
                                 title="Download"
-                                download>⬇️ Download</a>
-
+                                download
+                                onclick="event.stopPropagation();">⬇️ Download</a>
                             <?php else: ?>
                                 <br>
-                        <?php endif; ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
             </tbody>
         </table>
     </div>
