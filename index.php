@@ -39,8 +39,10 @@ $display_path = clean_path_display($current_path);
         <?php if (ALLOW_UPLOADS): ?>
         <div class="upload-form">
             <form method="post" enctype="multipart/form-data">
-                <label for="file-upload" class="upload-label">Choose File</label>
-                <input id="file-upload" type="file" name="newfile" required>
+                <div class="file-upload-wrapper">
+                    <label for="file-upload" class="custom-file-upload">📁 Choose File</label>
+                    <input id="file-upload" type="file" name="newfile" required>
+                </div>
                 <button type="submit" class="btn">Upload</button>
                 <span class="file-name-display"></span>
             </form>
@@ -56,7 +58,7 @@ $display_path = clean_path_display($current_path);
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 <?php if ($current_path !== realpath(SHARED_ROOT)): ?>
                 <tr>
                     <td colspan="4"><a href="?path=<?= urlencode(dirname($display_path)) ?>">📁 Parent Directory</a></td>
@@ -69,7 +71,8 @@ $display_path = clean_path_display($current_path);
                         <?php if ($file['type'] === 'dir'): ?>
                             <a href="?path=<?= urlencode($file['path']) ?>">📁 <?= htmlspecialchars($file['name']) ?></a>
                         <?php else: ?>
-                            <span>📄 <?= htmlspecialchars($file['name']) ?></span>
+                            <?php $icon = get_file_icon($file['name']); ?>
+                            <span><?= $icon ?> <?= htmlspecialchars($file['name']) ?></span>
                         <?php endif; ?>
                     </td>
                     <td><?= format_size($file['size']) ?></td>
@@ -77,9 +80,10 @@ $display_path = clean_path_display($current_path);
                     <td class="file-actions">
                         <?php if ($file['type'] !== 'dir'): ?>
                             <a href="/Shared/<?= htmlspecialchars($file['path']) ?>" 
-                               class="action-btn download-btn" 
-                               title="Download"
-                               download>⬇️</a>
+                                class="btn btn-download" 
+                                title="Download"
+                                download>⬇️ Download</a>
+
                             <?php else: ?>
                                 <br>
                         <?php endif; ?>
